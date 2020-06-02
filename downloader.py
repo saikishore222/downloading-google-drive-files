@@ -1,0 +1,25 @@
+from tkinter import *
+from tkinter import messagebox  
+from google_drive_downloader import GoogleDriveDownloader as gdd
+root=Tk()
+root.title("file downloader")
+root.geometry('750x500')
+root.configure(bg="#80DF6F")
+l1=Label(root,text="Enter a url:-",fg="blue",bg="#80DF6F",font="Arial 15 bold")
+l1.place(x=70,y=40)
+w1=Entry(root,width=63)
+w1.place(x=200,y=40)
+l2=Label(root,text="filename:-",fg="blue",bg="#80DF6F",font="Arial 15 bold")
+l2.place(x=70,y=80)
+w2=Entry(root,width=63)
+w2.place(x=200,y=80)
+def download():
+    url=w1.get()
+    l=url.split("d/")
+    l1=l[1].split("/view")
+    file=w2.get()
+    gdd.download_file_from_google_drive(file_id=l1[0],dest_path='./%s'%file,unzip=False)
+    messagebox.showinfo("information","%s file was downloaded successfully"%(file))  
+b1=Button(root,text="Download",bg="pink",fg="blue",font="Arial 15 bold",command=download)
+b1.place(x=300,y=140)
+root.mainloop()
